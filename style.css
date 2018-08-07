@@ -1,0 +1,14 @@
+* {margin: 0; padding: 0; box-sizing: border-box;}
+
+.mainWindow {
+  height: 300px;
+  width: 400px;
+  overflow: hidden;
+  border: 10px solid black;
+  margin: 20px auto;
+}
+
+.images {
+  display: flex;
+  align-items: flex-start;
+}
