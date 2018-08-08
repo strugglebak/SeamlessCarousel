@@ -1,15 +1,3 @@
-var index = 0;
-index += 1;
-
-var num = $('#images > img').length;
-for (let i=0; i<num; i++) {
-  if (i === 0) {
-    $(`#images > img:nth-child(${i+1})`).addClass('show');
-  }
-
-  $(`#images > img:nth-child(${i+1})`).addClass('arrival');
-}
-
 function limitIndex(imgIndex, imgNum) {
     if (imgIndex > imgNum) {
       // if index is multiple of imgNum like imgNum * n
@@ -35,4 +23,18 @@ function moveImage(delayTime, imgNum) {
   }, delayTime);
 }
 
+function init(imgNum) {
+  for (let i=0; i<imgNum; i++) {
+    if (i === 0) {
+      $(`#images > img:nth-child(${i+1})`).addClass('show');
+    }
+
+    $(`#images > img:nth-child(${i+1})`).addClass('arrival');
+  }
+}
+
+var index = 0;
+index += 1;
+var num = $('#images > img').length;
+init(num);
 moveImage(2000, num);
