@@ -9,18 +9,18 @@ function limitIndex(imgIndex, imgNum) {
     return imgIndex;
 }
 
-function moveImage(delayTime, imgNum) {
-  setInterval(()=>{
-      let $img = $(`#images > img:nth-child(${limitIndex(index, imgNum)})`);
-      $img.removeClass('show').addClass('departure')
-          .one('transitionend', (e)=>{
-              // when transition event is end
-              $(e.currentTarget).removeClass('departure').addClass('arrival');
-          });
-      index += 1;
-      $img = $(`#images > img:nth-child(${limitIndex(index, imgNum)})`);
-      $img.removeClass('arrival').addClass('show');
-  }, delayTime);
+function moveImage(index, imgNum) {
+  let $img = $(`#images > img:nth-child(${limitIndex(index, imgNum)})`);
+  $img.removeClass('arrival').addClass('show');
+}
+
+function showImage(index, imgNum) {
+  let $img = $(`#images > img:nth-child(${limitIndex(index, imgNum)})`);
+  $img.removeClass('show').addClass('departure')
+      .one('transitionend', (e)=>{
+          // when transition event is end
+          $(e.currentTarget).removeClass('departure').addClass('arrival');
+      });
 }
 
 function init(imgNum) {
@@ -28,13 +28,17 @@ function init(imgNum) {
     if (i === 0) {
       $(`#images > img:nth-child(${i+1})`).addClass('show');
     }
-
     $(`#images > img:nth-child(${i+1})`).addClass('arrival');
   }
 }
 
-var index = 0;
-index += 1;
+var index = 1;
 var num = $('#images > img').length;
+
 init(num);
-moveImage(2000, num);
+
+setInterval(function() {
+  showImage(index, num);
+  index += 1;
+  moveImage(index, num);
+}, 2000);
