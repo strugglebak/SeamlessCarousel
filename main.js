@@ -1,44 +1,70 @@
-function limitIndex(imgIndex, imgNum) {
-    if (imgIndex > imgNum) {
-      // if index is multiple of imgNum like imgNum * n
-      imgIndex = imgIndex % imgNum;
-      if (imgIndex === 0) {
-        imgIndex = imgNum;
-      }
-    }
-    return imgIndex;
-}
+let $buttons = $('#buttonWrapper > button');
+let index = 0;
 
-function moveImage(index, imgNum) {
-  let $img = $(`#images > img:nth-child(${limitIndex(index, imgNum)})`);
-  $img.removeClass('arrival').addClass('show');
-}
+let $images = $('#images');
+let $imagesChild = $images.children('img');
 
-function showImage(index, imgNum) {
-  let $img = $(`#images > img:nth-child(${limitIndex(index, imgNum)})`);
-  $img.removeClass('show').addClass('departure')
-      .one('transitionend', (e)=>{
-          // when transition event is end
-          $(e.currentTarget).removeClass('departure').addClass('arrival');
-      });
-}
+let $firstFake = $imagesChild.eq(0).clone(true);
+let $lastFake = $imagesChild.eq($imagesChild.length - 1).clone(true);
 
-function init(imgNum) {
-  for (let i=0; i<imgNum; i++) {
-    if (i === 0) {
-      $(`#images > img:nth-child(${i+1})`).addClass('show');
-    }
-    $(`#images > img:nth-child(${i+1})`).addClass('arrival');
+$images.prepend($lastFake);
+$images.append($firstFake);
+
+$images.hide().offset();
+$images.css({
+  transform: 'translateX(-400px)'
+});
+$images.show();
+
+$buttons.eq(0).on('click', function() {
+  console.log('index = ' + index);
+  if (index === 4) {
+    console.log('从 最后一张 跳到 第一张');
+    $('#images').css({
+         transform: 'translateX(-2000px)'
+    }).one('transitionend', function() {
+      console.log('动画结束');
+      $('#images').hide().offset();
+      $('#images').css({
+        transform: 'translateX(-400px)'
+      }).show();
+    })
+  } else {
+    $('#images').css({
+      transform: 'translateX(-400px)'
+    });
   }
-}
+  index = 1;
+});
+$buttons.eq(1).on('click', function() {
+  $('#images').css({
+    transform: 'translateX(-800px)'
+  });
+  index = 2;
+});
+$buttons.eq(2).on('click', function() {
+  $('#images').css({
+    transform: 'translateX(-1200px)'
+  });
+  index = 3;
+});
+$buttons.eq(3).on('click', function() {
+  if (index === 1) {
+    console.log('从 第一张 跳到 最后一张');
+    $('#images').css({
+      transform: 'translateX(0px)'
+    }).one('transitionend', function() {
+      console.log('动画结束');
+      $('#images').hide().offset();
+      $('#images').css({
+        transform: 'translateX(-1600px)'
+      }).show();
 
-var index = 1;
-var num = $('#images > img').length;
-
-init(num);
-
-setInterval(function() {
-  showImage(index, num);
-  index += 1;
-  moveImage(index, num);
-}, 2000);
+    })
+  } else {
+    $('#images').css({
+      transform: 'translateX(-1600px)'
+    });
+  }
+  index = 4;
+});

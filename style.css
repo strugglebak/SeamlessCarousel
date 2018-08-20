@@ -5,30 +5,13 @@
   width: 400px;
   overflow: hidden;
   margin: 100px auto;
-  border: 10px solid #000;
 }
 .images {
   display: flex;
-  align-items: flex-start;
-  position: relative;
-}
-
-.images > img {
+  /* align-items: flex-start; */
   transition: all 0.5s;
 }
-.images > img.arrival {
-  position: absolute;
-  top: 0;
-  transform: translateX(400px);
-}
-.images > img.show {
-  position: absolute;
-  top: 0;
-  transform: translateX(0);
-  z-index: 1;
-}
-.images > img.departure {
-  position: absolute;
-  top: 0;
-  transform: translateX(-400px);
+
+#buttonWrapper {
+  text-align: center;
 }
