@@ -12,6 +12,6 @@
   transition: all 0.5s;
 }
 
-#buttonWrapper {
+#buttonWrapper, #controls {
   text-align: center;
 }

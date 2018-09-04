@@ -1,13 +1,10 @@
-let $buttons = $('#buttonWrapper > button');
-let index = 0;
+function gotoSlide(buttonIndex) {
+  if (buttonIndex > $buttons.length - 1) {
+    buttonIndex = 0;
+  } else if (buttonIndex < 0) {
+    buttonIndex = $buttons.length - 1;
+  }
 
-let $images = $('#images');
-let $imagesChild = $images.children('img');
-
-let $firstFake = $imagesChild.eq(0).clone(true);
-let $lastFake = $imagesChild.eq($imagesChild.length - 1).clone(true);
-
-function gotoSlide(buttonIndex, curIndex) {
   if (buttonIndex === 0 && curIndex === $buttons.length - 1) {
     // 从最后一张跳转到第一张
     $('#images').css({
@@ -33,22 +30,37 @@ function gotoSlide(buttonIndex, curIndex) {
       transform: `translateX(${-(buttonIndex+1)*400}px)`
     });
   }
+  curIndex = buttonIndex;
 }
+
+function bindEvents() {
+  $('#buttonWrapper').on('click', 'button', function(e) {
+    let $curButton = $(e.currentTarget);
+    let buttonIndex = $curButton.index();
+    gotoSlide(buttonIndex);
+  });
+
+  $('#prev').on('click', function() {
+    gotoSlide(curIndex - 1);
+  });
+  $('#next').on('click', function() {
+    gotoSlide(curIndex + 1);
+  });
+}
+
+let $buttons = $('#buttonWrapper > button');
+let $images = $('#images');
+let $imagesChild = $images.children('img');
+let $firstFake = $imagesChild.eq(0).clone(true);
+let $lastFake = $imagesChild.eq($imagesChild.length - 1).clone(true);
 
 $images.prepend($lastFake);
 $images.append($firstFake);
-
 $images.hide().offset();
 $images.css({
   transform: 'translateX(-400px)'
 });
 $images.show();
 
-
 let curIndex = 0;
-$('#buttonWrapper').on('click', 'button', function(e) {
-  let $curButton = $(e.currentTarget);
-  let buttonIndex = $curButton.index();
-  gotoSlide(buttonIndex, curIndex);
-  curIndex = buttonIndex;
-});
+bindEvents();
