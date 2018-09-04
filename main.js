@@ -48,6 +48,12 @@ function bindEvents() {
   });
 }
 
+function setSlideOn() {
+  return setInterval(function() {
+    gotoSlide(curIndex + 1);
+  }, 2000);
+}
+
 let $buttons = $('#buttonWrapper > button');
 let $images = $('#images');
 let $imagesChild = $images.children('img');
@@ -64,3 +70,11 @@ $images.show();
 
 let curIndex = 0;
 bindEvents();
+
+var timeId = setSlideOn();
+$('#mainWindow').on('mouseenter', function() {
+  window.clearInterval(timeId);
+});
+$('#mainWindow').on('mouseleave', function() {
+  timeId = setSlideOn();
+});
