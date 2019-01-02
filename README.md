@@ -1,4 +1,4 @@
-# SeamlessCarousel
+# seamless-carousel
 
 说明: 该轮播实现的是无缝轮播,主要有两个分支:
 
