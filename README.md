@@ -1,4 +1,4 @@
-# SeamlessCarousel
+# seamless-carousel
 
 说明: 该轮播实现的是无缝轮播,主要有两个分支:
 
@@ -8,5 +8,5 @@
 	- auto-play 分支主要在 master 分支基础上,以另一种更好的方式实现
 
 预览链接
-[SeamlessCarousel](https://strugglebak.github.io/SeamlessCarousel/)
+[seamless-carousel](https://strugglebak.github.io/seamless-carousel/)
 
